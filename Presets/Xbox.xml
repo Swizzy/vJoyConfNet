@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <name>Xbox 360/Xbox One</name>
+  <btncount>13</btncount>
+  <povcount>1</povcount>
+  <povtype>1</povtype>
+  <xaxis>true</xaxis>
+  <yaxis>true</yaxis>
+  <zaxis>true</zaxis>
+  <xaxisrot>true</xaxisrot>
+  <yaxisrot>true</yaxisrot>
+  <zaxisrot>true</zaxisrot>
+</root>

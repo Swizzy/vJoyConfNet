@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <name>Info</name> <!-- Name shown in the config tool -->
+  <btncount>0</btncount> <!-- Button count Range: 0 - 32 -->
+  <povcount>0</povcount> <!-- POV Count Range: 0 - 4 -->
+  <povtype>0</povtype> <!-- POV Type: 0 = None, 1 = Continuous, 2 = 4 Directions -->
+  <xaxis>true</xaxis> <!-- X-Axis (set it to true, false if not here or something else) -->
+  <yaxis>true</yaxis> <!-- Y-Axis (set it to true, false if not here or something else) -->
+  <zaxis>true</zaxis> <!-- Z-Axis (set it to true, false if not here or something else) -->
+  <uaxis>false</uaxis> <!-- U-Axis/Slider (set it to true, false if not here or something else) -->
+  <vaxis>false</vaxis> <!-- V-Axis/Dial/Slider2 (set it to true, false if not here or something else) -->
+  <xaxisrot>false</xaxisrot> <!-- Rx-Axis (set it to true, false if not here or something else) -->
+  <yaxisrot>false</yaxisrot> <!-- Ry-Axis (set it to true, false if not here or something else) -->
+  <zaxisrot>true</zaxisrot> <!-- R-Axis/Rz-Axis/Rudder (set it to true, false if not here or something else) -->
+</root>
