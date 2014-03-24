@@ -5,13 +5,14 @@
 
     public class VJoyConf {
         private const byte MaxButtons = 32;
+        private const byte MinAxes = 8;
         private readonly RegistryKey _regKey;
 
         public VJoyConf() {
             _regKey = Registry.LocalMachine.CreateSubKey("SYSTEM");
             if(_regKey == null)
                 throw new InvalidOperationException();
-                    _regKey = _regKey.CreateSubKey("CurrentControlSet");
+            _regKey = _regKey.CreateSubKey("CurrentControlSet");
             if(_regKey == null)
                 throw new InvalidOperationException();
             _regKey = _regKey.CreateSubKey("services");
@@ -25,8 +26,7 @@
                 throw new InvalidOperationException();
         }
 
-        public byte[] CreateHidReportDesc(byte reportID, bool[] axes, byte nPovHatsCont, byte nPovHatsDir, byte nButtons)
-        {
+        public byte[] CreateHidReportDesc(byte reportID, bool[] axes, byte nPovHatsCont, byte nPovHatsDir, byte nButtons) {
             var ret = new List<byte>();
 
             #region Header + Collection 1
@@ -39,8 +39,7 @@
 
             #region Axes
 
-            // Loop first 8 axes
-            for(var i = 0; i < axes.Length; i++) {
+            for(var i = 0; i < axes.Length; i++) { // Loop axes
                 if(axes[i]) {
                     ret.Add(0x09);
                     ret.Add((byte)(0x30 + i));
@@ -48,6 +47,12 @@
                     ret.Add(0x02);
                 }
                 else {
+                    ret.Add(0x81);
+                    ret.Add(0x01);
+                }
+            }
+            if(axes.Length < MinAxes) { // Assume the remaining axes are not implemented
+                for(var i = 0; i < MinAxes - axes.Length; i++) {
                     ret.Add(0x81);
                     ret.Add(0x01);
                 }
@@ -90,11 +95,12 @@
                 }
                 // Insert 1-3 continuous POV place holders
                 ret.AddRange(new byte[] {
-                                                0x95, 0x03, 0x81, 0x01
-                                            });
+                                            0x95, 0x03, 0x81, 0x01
+                                        });
             }
                 #endregion
                 #region No POV Padding
+
             else {
                 ret.AddRange(new byte[] {
                                             0x75, 0x20, 0x95, 0x04, 0x81, 0x01
@@ -137,7 +143,7 @@
         }
 
         public void DeleteHidReportDescFromReg(int target) {
-            if (_regKey == null)
+            if(_regKey == null)
                 throw new InvalidOperationException();
             int max, i;
             if(target != 0 || target > 16)
@@ -150,7 +156,7 @@
                 try {
                     _regKey.DeleteSubKey(string.Format("Device{0:D2}", i));
                 }
-                catch { }
+                catch {}
             }
         }
     }
